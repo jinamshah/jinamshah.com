@@ -109,3 +109,29 @@ section {
 .coming_content h3 a {
   text-decoration: underline;
 }
+
+
+#box{
+  width:550px;
+  height:250px;
+  margin:auto;
+  margin-top:30px;
+  clear:both;
+  overflow:hidden;
+}
+img{
+  float: left;
+}
+#container{
+  /*margin:auto;*/
+  width:3200px;
+  height:250px;
+  animation: move 100s;
+  animation-direction:alternate;
+  animation-iteration-count:infinite;
+}
+
+@keyframes move{
+  from {transform: translate(0px,0px);}
+  to {transform: translate(-2560px,0px);}
+}

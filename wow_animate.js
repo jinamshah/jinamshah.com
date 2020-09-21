@@ -1,6 +1,7 @@
 $(document).ready(function() {
+  document.addEventListener('wheel', this.onMouseWheel, {passive: false});
   new WOW().init();
-    
+  
   // Push the body and the nav over by 285px over
   var main = function() {
     $('.fa-bars').click(function() {

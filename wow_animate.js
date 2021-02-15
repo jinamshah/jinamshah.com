@@ -44,8 +44,8 @@ $(document).ready(function() {
     scrollBar: true,
     responsiveWidth: 400,
     navigation: true,
-    navigationTooltips: ['home', 'about', 'interests', 'contact', 'connect'],
-    anchors: ['home', 'about', 'interests', 'contact', 'connect'],
+    navigationTooltips: ['home', 'about', 'projects', 'contact', 'connect'],
+    anchors: ['home', 'about', 'projects', 'contact', 'connect'],
     menu: '#myMenu',
     fitToSection: false,
     afterLoad: function ( anchorLink, index){

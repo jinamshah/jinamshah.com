@@ -1,7 +1,15 @@
-var canvas = document.getElementById('beerCanvas');
+var canvas = document.getElementById('portfolioCanvas') || document.getElementById('beerCanvas');
 var ctx = canvas.getContext('2d');
 var particles = [];
-var particleCount = 280;
+var particleCount = canvas.id === 'portfolioCanvas' ? 72 : 280;
+
+function resizeCanvas() {
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight;
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
 for (var i = 0; i < particleCount; i++) {
   particles.push(new particle());
@@ -9,10 +17,10 @@ for (var i = 0; i < particleCount; i++) {
 
 function particle() {
   this.x = Math.random() * canvas.width;
-  this.y = canvas.height + Math.random() * 300;
-  this.speed = 1 + Math.random();
-  this.radius = Math.random() * 3;
-  this.opacity = (Math.random() * 100) / 1000;
+  this.y = canvas.height + Math.random() * 120;
+  this.speed = 0.25 + Math.random() * 0.55;
+  this.radius = 1.5 + Math.random() * 4;
+  this.opacity = canvas.id === 'portfolioCanvas' ? 0.2 + Math.random() * 0.34 : (Math.random() * 100) / 1000;
 }
 
 function loop() {
@@ -26,7 +34,7 @@ function draw() {
   for (var i = 0; i < particles.length; i++) {
     var p = particles[i];
     ctx.beginPath();
-    ctx.fillStyle = 'rgba(255,255,255,' + p.opacity + ')';
+    ctx.fillStyle = canvas.id === 'portfolioCanvas' ? 'rgba(241, 166, 106,' + p.opacity + ')' : 'rgba(255,255,255,' + p.opacity + ')';
     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2, false);
     ctx.fill();
     p.y -= p.speed;
@@ -92,17 +100,30 @@ var TxtType = function(el, toRotate, period) {
         css.type = "text/css";
         css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
         document.body.appendChild(css);
-        
-        $('[data-github]').each(function () {
-          var _this = this;
-          var repo = $(_this).data('github')
-        
-          fetch('https://api.github.com/repos/' + repo).then(function (response) {
-            return response.json();
-          }).then(function (response) {
-            $(_this).find('[data-forks]').text(response.forks);
-            $(_this).find('[data-stars]').text(response.stargazers_count);
-          });
-        });
+
+        var activityMode = new URLSearchParams(window.location.search).get('activity');
+        var showActivityMap = function() {
+          if (!window.GitHubCalendar) {
+            return;
+          }
+
+          document.querySelector('.activity-map').hidden = false;
+          document.querySelector('[data-activity-fallback]').hidden = true;
+          GitHubCalendar('.activity-map', 'jinamshah', { responsive: true });
+        };
+
+        if (activityMode === 'map') {
+          showActivityMap();
+        } else if (activityMode !== 'shelf') {
+          fetch('https://api.github.com/users/jinamshah/events/public')
+            .then(function(response) { return response.ok ? response.json() : []; })
+            .then(function(events) {
+              if (window.shouldShowActivityMap && window.shouldShowActivityMap(events)) {
+                showActivityMap();
+              }
+            })
+            .catch(function() {});
+        }
+
     };
 

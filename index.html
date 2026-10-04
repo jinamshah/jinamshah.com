@@ -13,24 +13,10 @@
 
   gtag('config', 'G-5CY9EWFDPY');
 </script>
-  <link href='https://fonts.googleapis.com/css?family=Raleway:300,200,400,600' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
-  <link rel="stylesheet" href="./second_style.css">
-
-  <script
-  src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js">
-</script>
-
-<!-- Optionally, include the theme (if you don't want to struggle to write the CSS) -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"
-/>
+  <link rel="stylesheet" href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css">
+  <script src="https://unpkg.com/github-calendar@latest/dist/github-calendar.min.js"></script>
 
 </head>
 <body>
@@ -162,9 +148,6 @@
     <div class="wow content fadeInDown calendar" style="margin: 10px;">
       <!-- Loading stuff -->
       Loading the data just for you.
-      <script>
-        GitHubCalendar(".calendar", "jinamshah", { responsive: true });
-    </script>
   </div>
     <div class="github-cards">
       <a class="github-card">
@@ -233,15 +216,75 @@
 </div>
 <!-- end -->
 <!-- partial -->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <script src="https://s3-us-west-2.amazonaws.com/parallax-theme/assets/wow.min.js"></script>
+  <main class="portfolio-shell">
+    <nav class="portfolio-nav" aria-label="Primary navigation">
+      <a class="wordmark" href="#top">JS<span>/</span></a>
+      <div class="portfolio-nav__links">
+        <a href="#work">Selected work</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
 
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.9.7/jquery.fullpage.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/2.7.4/jquery.fullPage.min.js"></script>
-  
-  <script  src="./script.js"></script>
-  <script  src="./wow_animate.js"></script>
+    <section class="portfolio-hero" id="top">
+      <canvas id="portfolioCanvas" aria-hidden="true"></canvas>
+      <div class="hero-copy">
+        <p class="hero-name">Jinam Shah</p>
+        <p class="eyebrow">Machine learning systems / Raleigh, NC</p>
+        <h1>I build the systems that make <em>AI useful.</em></h1>
+        <p class="hero-intro">Jinam Shah is an ML engineer working across NLP, computer vision, distributed data, and the infrastructure that carries them into production.</p>
+        <div class="hero-actions">
+          <a class="text-link text-link--bright" href="#work">See selected work <span>↘</span></a>
+          <a class="text-link text-link--muted" href="./resume.pdf" target="_blank" rel="noreferrer">Resume <span>↗</span></a>
+        </div>
+      </div>
+      <div class="hero-note"><span>Profile</span><span>Research to<br>reliable product</span></div>
+    </section>
+
+    <section class="proof-strip" aria-label="Career highlights">
+      <div><strong>5+</strong><span>years building<br>production ML</span></div>
+      <div><strong>NLP</strong><span>language and<br>entity systems</span></div>
+      <div><strong>CV</strong><span>vision and<br>field intelligence</span></div>
+    </section>
+
+    <section class="work-section" id="work">
+      <div class="section-heading"><p class="eyebrow">Open source / selected work</p><p class="section-aside">A small window into what I build, maintain, and learn in public.</p></div>
+      <div class="work-layout">
+        <div class="github-panel">
+          <div class="github-panel__top"><span class="work-index">Open-source shelf</span><a href="https://github.com/jinamshah">github.com/jinamshah ↗</a></div>
+          <p class="github-panel__note">A few public projects spanning language, vision, and field intelligence.</p>
+          <div class="activity-map" hidden></div>
+          <div class="repo-shelf" data-activity-fallback>
+            <a class="repo-row" href="https://github.com/jinamshah/S2AND"><span>S2AND</span><small>Author disambiguation for scientific literature</small><b>↗</b></a>
+            <a class="repo-row" href="https://github.com/precision-sustainable-ag/drone-image-manipulation"><span>drone-image-manipulation</span><small>Processing workflows for agricultural imagery</small><b>↗</b></a>
+            <a class="repo-row" href="https://github.com/precision-sustainable-ag/SemiF-PlantDetection"><span>SemiF-PlantDetection</span><small>Semi-automatic plant detection for precision agriculture</small><b>↗</b></a>
+          </div>
+        </div>
+        <div class="work-list">
+        <article class="work-item">
+          <p class="work-index">01 / Inference</p>
+          <div><h2>Entity intelligence</h2><p>TorchServe to NVIDIA Triton migration for reliable, high-throughput NLP services.</p><span class="work-tags">NLP &nbsp; / &nbsp; Triton</span></div>
+        </article>
+        <article class="work-item">
+          <p class="work-index">02 / Computer vision</p>
+          <div><h2>Seeing the field</h2><p>YOLOv11, retraining loops, and geospatial analysis for agricultural imagery.</p><span class="work-tags">YOLOv11 &nbsp; / &nbsp; MLOps</span></div>
+        </article>
+        <article class="work-item">
+          <p class="work-index">03 / Distributed systems</p>
+          <div><h2>Systems that scale</h2><p>Serverless and HPC infrastructure for large document and model-processing workflows.</p><span class="work-tags">AWS &nbsp; / &nbsp; HPC</span></div>
+        </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-section" id="contact">
+      <div class="closing-copy"><div class="bottle-mark" aria-label="A small bottle mark" role="img"><span></span></div><p class="eyebrow">Have a hard problem?</p><h2>Let’s make it<br><em>work in the real world.</em></h2><a class="contact-link" href="mailto:jinams47@gmail.com">jinams47@gmail.com <span>↗</span></a></div>
+      <p class="closing-note">Good systems. No unnecessary ceremony.</p>
+      <div class="closing-footer"><span>Jinam Shah</span><div><a href="https://www.linkedin.com/in/jinamshah/">LinkedIn</a><a href="https://github.com/jinamshah">GitHub</a></div><span>© 2026</span></div>
+    </section>
+  </main>
+
+  <script src="./github_activity.js"></script>
+  <script src="./script.js"></script>
 
   
 </body>

@@ -1,0 +1,98 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Validate HTML
+        run: |
+          # Check that index.html exists and has basic structure
+          test -f index.html
+          grep -q '<!DOCTYPE html>' index.html
+          grep -q '<html lang="en"' index.html
+          grep -q '<title>Jinam Shah</title>' index.html
+          grep -q 'mailto:hi@jinamshah.com' index.html
+
+  validate:
+    name: Validate Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files exist
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f script.js
+          test -f github_activity.js
+          test -f favicon.ico
+          test -f CNAME
+          test -f resume.pdf
+
+      - name: Validate CNAME
+        run: |
+          DOMAIN=$(cat CNAME)
+          echo "Domain: $DOMAIN"
+          test "$DOMAIN" = "jinamshah.com"
+
+      - name: Check for broken internal links
+        run: |
+          # Check that all local file references exist
+          grep -oP 'href="\./[^"]+"' index.html | sed 's/href="\.\///;s/"//' | while read file; do
+            test -f "$file" || { echo "Missing file: $file"; exit 1; }
+          done
+          
+          grep -oP 'src="\./[^"]+"' index.html | sed 's/src="\.\///;s/"//' | while read file; do
+            test -f "$file" || { echo "Missing file: $file"; exit 1; }
+          done
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: [test, validate]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Personal website for Jinam Shah",
   "scripts": {
-    "test": "node --test tests/**/*.test.js",
-    "test:watch": "node --test --watch tests/**/*.test.js",
+    "test": "node --test tests/*.test.js",
+    "test:watch": "node --test --watch tests/*.test.js",
     "lint": "echo 'No linter configured'",
     "validate": "npm test"
   },
